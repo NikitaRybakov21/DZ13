@@ -5,7 +5,10 @@ import java.util.concurrent.Semaphore;
 
 public class MainClass {
     public static final int CARS_COUNT = 4;
-
+    public static final CountDownLatch cd = new CountDownLatch(4);
+    public static final CountDownLatch cdFinish = new CountDownLatch(4);
+    public static final Semaphore smTunnel = new Semaphore(2);
+    public static boolean flag = true;
 
     public static void main(String[] args) {
         System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Подготовка!!!");
@@ -20,11 +23,13 @@ public class MainClass {
         for (int i = 0; i < cars.length; i++) {
             new Thread(cars[i]).start();
         }
-
+        try { MainClass.cd.await();
+        } catch (InterruptedException e) { e.printStackTrace();}
         System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка началась!!!");
 
 
-
+        try { MainClass.cdFinish.await();
+        } catch (InterruptedException e) { e.printStackTrace();}
         System.out.println("ВАЖНОЕ ОБЪЯВЛЕНИЕ >>> Гонка закончилась!!!");
     }
 }
