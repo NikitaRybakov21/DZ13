@@ -12,7 +12,11 @@ public class Road extends Stage{
             Thread.sleep(length / c.getSpeed() * 1000L);
             System.out.println(c.getName() + " закончил этап: " + description);
 
-
+            if((MainClass.flag)&&(this.length == 40)){
+                System.out.println(c.getName() + " Win");
+                MainClass.flag = false;
+            }
+            if(this.length == 40) MainClass.cdFinish.countDown();
 
         } catch (InterruptedException e) {
             e.printStackTrace();

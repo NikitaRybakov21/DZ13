@@ -11,7 +11,7 @@ public class Tunnel extends Stage{
             try {
                 System.out.println(c.getName() + " готовится к этапу(ждет): " + description);
 
-
+                MainClass.smTunnel.acquire();
 
                 System.out.println(c.getName() + " начал этап: " + description);
                 Thread.sleep(length / c.getSpeed() * 1000L);
@@ -19,7 +19,7 @@ public class Tunnel extends Stage{
                 e.printStackTrace();
             } finally {
                 System.out.println(c.getName() + " закончил этап: " + description);
-
+                MainClass.smTunnel.release();
             }
         } catch (Exception e) {
             e.printStackTrace();
